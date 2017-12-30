@@ -24,9 +24,10 @@ io.on('connection', (socket) => {
     generateMessage('Admin', 'New user joined'));
 
   // listen for new Message and emit to all
-  socket.on('createMessage', (message) => {
+  socket.on('createMessage', (message, callback) => {
     console.log(('createMessage'), message);
     io.emit('newMessage', generateMessage(message.from, message.text));
+    callback('the createMessage sent to the server was valid')
   });
 
 

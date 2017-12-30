@@ -8,7 +8,23 @@ socket.on('disconnect',  function () {
   console.log('Disconnected from server');
 });
 
-//listening for a new message
-socket.on('newMessage', function(message) {
+//listening for a new message from other users
+socket.on('newMessage', function (message) {
   console.log('There is a newMessage: ', message);
-})
+  var li = jQuery('<li></li');
+  li.text(`${message.from}: ${message.text}`);
+
+  jQuery('#messages').append(li);
+});
+
+// add listener to the form to get e (event)
+jQuery('#message-form').on('submit', function (e) {
+  e.preventDefault();
+
+  socket.emit('createMessage', {
+    from: 'User',
+    text: jQuery('[name=message]').val()
+  }, function () {
+
+  });
+});
