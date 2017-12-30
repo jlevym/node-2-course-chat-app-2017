@@ -14,16 +14,16 @@ app.use(express.static(publicPath));
 io.on('connection', (socket) => {
   console.log('New user connected');
 
-  // emit new email
-  socket.emit('newEmail', {
-    from: 'david@example.com',
-    text: 'hi from David in server.js',
-    createdAt: 123
+  // emit new message
+  socket.emit('newMessage', {
+    from: 'david',
+    text: 'hi from David in server.js with a short message',
+    createdAt: (new Date()).getTime()
   });
 
-  // listen for new createEmail
-  socket.on('createEmail', (newEmail) => {
-    console.log('createEmail', newEmail)
+  // listen for new Message
+  socket.on('createMessage', (newMsg) => {
+    console.log('received a createMessage', newMsg)
   });
 
 
