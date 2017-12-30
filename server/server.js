@@ -30,6 +30,11 @@ io.on('connection', (socket) => {
     callback('the createMessage sent to the server was valid')
   });
 
+  // listen for new geolocation and emit to all
+  socket.on('createLocationMessage', (coords) => {
+    io.emit('newMessage', generateMessage('Admin', `${coords.latitude}, ${coords.longitude}` ))
+  });
+
 
   socket.on('disconnect', () => {
     console.log('User was disconnected');
